@@ -1,46 +1,42 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 )
 
-var t2 string
-
-func alphaOnly(t2) bool {
-	for _, char := range s {
-		if !strings.Contains(alpha, strings.ToLower(string(char))) {
-			return false
-		}
-	}
-	return true
-}
-
 func main() {
-	var i int = 0
-	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Print("Insira uma palavra: ")
-	scanner.Scan()
-	t1 := scanner.Text()
-	fmt.Println("Insira outra palavra: ")
-	scanner.Scan()
-	t2 = scanner.Text()
-	for {
-		if len(t1) != len(t2) {
-			fmt.Print("As duas palavras não são anagramas.")
-			break
-		} else {
-			for i < len(t1) {
-				if IsLetter(t2) == false {
-					print("As duas palavras não são anagramas.")
-					break
-				}
-				i++
+	var x, y string
+	fmt.Print("Escreva algo: ")
+	fmt.Scan(&x)
+	fmt.Print("Escreva algo: ")
+	fmt.Scan(&y)
+
+	if len(x) != len(y) {
+		fmt.Println("Não é um anagrama")
+	} else {
+		frequenciaX := make(map[rune]int)
+		frequenciaY := make(map[rune]int)
+
+		for _, letra := range x {
+			frequenciaX[letra] += 1
+		}
+
+		for _, letra := range y {
+			frequenciaY[letra] += 1
+		}
+
+		anagrama := true
+
+		for letra, count := range frequenciaX {
+			if frequenciaY[letra] != count {
+				anagrama = false
 			}
 		}
-		print("As duas palavras são anagramas.")
-	}
 
+		if anagrama {
+			fmt.Printf("As palavras %s e %s são anagramas\n", x, y)
+		} else {
+			fmt.Println("Não são anagramas")
+		}
+	}
 }
